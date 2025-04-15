@@ -8,7 +8,7 @@ router.post("/register", async (req, res) => {
     return res.status(422).json({ error: "Please fill all the fields" });
   }
   try {
-    const user =await crudModels.findOne({ email: email });
+    const user = await crudModels.findOne({ email: email });
     if (user) {
       return res.status(422).json({ error: "User already exists" });
     } else {
@@ -22,7 +22,9 @@ router.post("/register", async (req, res) => {
         description,
       });
       await userData.save();
-      return res.status(201).json({ message: "User Registered Successfully",userData });
+      return res
+        .status(201)
+        .json({ message: "User Registered Successfully", userData });
     }
   } catch (error) {
     return res.status(500).json({ error: "Failed to register user" });

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
+import axios from "axios";
 
 export default function Register() {
   const [data, setData] = useState({
@@ -15,14 +16,32 @@ export default function Register() {
     setData({ ...data, [e.target.name]: e.target.value });
 
   }
-  console.log(data);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+   try {
+     const response = await axios.post("http://localhost:8000/register", data, {
+       method: "POST",
+      
+       
+     });
+
+     const result = await res.json();
+     console.log(result);
+   } catch (error) {
+    console.log(error.response.massage)
+   }
+
+  }
+
   return (
     <div>
       <div className="container">
         <Link className="text-primary mt-3" to={"/"}>
           Home
         </Link>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="mb-3 col-lg-6 col-md-6 col-12">
               <label htmlFor="exampleInputEmail1" className="form-label">
@@ -123,7 +142,7 @@ export default function Register() {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary">
+            <button  className="btn btn-primary">
               Submit
             </button>
           </div>
