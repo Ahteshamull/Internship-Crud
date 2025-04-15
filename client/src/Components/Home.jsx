@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router";
 
 export default function Home() {
   return (
     <div className="mt-5">
       <div className="container">
         <div className=" add_btn mb-3">
-          <button className="btn btn-primary">Add Data</button>
+          <button className="btn btn-primary">+Add Data</button>
         </div>
         <table className="table">
           <thead>
@@ -29,9 +30,11 @@ export default function Home() {
                 <button className="btn btn-success">
                   <i className="fa-solid fa-eye"></i>
                 </button>
-                <button className="btn btn-primary">
-                  <i className="fa-regular fa-pen-to-square"></i>
-                </button>
+                <Link to={"/edit"}>
+                  <button className="btn btn-primary">
+                    <i className="fa-regular fa-pen-to-square"></i>
+                  </button>
+                </Link>
                 <button className="btn btn-danger">
                   <i className="fa-solid fa-trash"></i>
                 </button>

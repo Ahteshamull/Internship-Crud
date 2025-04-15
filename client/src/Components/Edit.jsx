@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 
-export default function Register() {
+export default function Edit() {
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -9,18 +9,17 @@ export default function Register() {
     mobile: "",
     age: "",
     address: "",
-   description:""
+    description: "",
   });
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-
-  }
+  };
   console.log(data);
   return (
     <div>
       <div className="container">
         <Link className="text-primary mt-3" to={"/"}>
-          Home
+          Home2
         </Link>
         <form>
           <div className="row">
