@@ -4,3 +4,15 @@
 .container{
     overflow: auto;
 }
+.left_view h3{
+font-size: 21px;
+}
+.left_view p{
+font-weight: 500;
+}
+.right_view h3{
+font-size: 21px;
+}
+.right_view p{
+font-weight: 500;
+}

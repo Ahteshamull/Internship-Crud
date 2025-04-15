@@ -9,7 +9,9 @@ export default function Home() {
     <div className="mt-5">
       <div className="container">
         <div className=" add_btn mb-3">
-          <button className="btn btn-primary">+Add Data</button>
+          <Link to={"/register"}>
+            <button className="btn btn-primary">+Add Data</button>
+          </Link>
         </div>
         <table className="table">
           <thead>
@@ -31,21 +33,42 @@ export default function Home() {
               <td>+121212</td>
               <td className="d-flex justify-content-between">
                 <button className="btn btn-success">
-                 <RemoveRedEyeIcon/>
+                  <RemoveRedEyeIcon />
                 </button>
                 <Link to={"/edit/id"}>
                   <button className="btn btn-primary">
-                    <EditSquareIcon/>
+                    <EditSquareIcon />
                   </button>
                 </Link>
                 <Link to={"/details/id"}>
                   <button className="btn btn-danger">
-                   <DeleteIcon/>
+                    <DeleteIcon />
                   </button>
                 </Link>
               </td>
             </tr>
-          
+            <tr>
+              <th scope="row">1</th>
+              <td>Test</td>
+              <td>test@gmail.com</td>
+              <td>Developer</td>
+              <td>+121212</td>
+              <td className="d-flex justify-content-between">
+                <button className="btn btn-success">
+                  <RemoveRedEyeIcon />
+                </button>
+                <Link to={"/edit/id"}>
+                  <button className="btn btn-primary">
+                    <EditSquareIcon />
+                  </button>
+                </Link>
+                <Link to={"/details/id"}>
+                  <button className="btn btn-danger">
+                    <DeleteIcon />
+                  </button>
+                </Link>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
