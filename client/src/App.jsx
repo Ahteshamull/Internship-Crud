@@ -6,6 +6,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 import Edit from "./Components/Edit.jsx";
+import Details from "./Components/Details.jsx";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/details/:id" element={<Details />} />
       </Routes>
      </>
   );

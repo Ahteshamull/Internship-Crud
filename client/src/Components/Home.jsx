@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import EditSquareIcon from "@mui/icons-material/EditSquare";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Home() {
   return (
@@ -28,36 +31,21 @@ export default function Home() {
               <td>+121212</td>
               <td className="d-flex justify-content-between">
                 <button className="btn btn-success">
-                  <i className="fa-solid fa-eye"></i>
+                 <RemoveRedEyeIcon/>
                 </button>
-                <Link to={"/edit"}>
+                <Link to={"/edit/id"}>
                   <button className="btn btn-primary">
-                    <i className="fa-regular fa-pen-to-square"></i>
+                    <EditSquareIcon/>
                   </button>
                 </Link>
-                <button className="btn btn-danger">
-                  <i className="fa-solid fa-trash"></i>
-                </button>
+                <Link to={"/details/id"}>
+                  <button className="btn btn-danger">
+                   <DeleteIcon/>
+                  </button>
+                </Link>
               </td>
             </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>Test</td>
-              <td>test@gmail.com</td>
-              <td>Developer</td>
-              <td>+121212</td>
-              <td className="d-flex justify-content-between">
-                <button className="btn btn-success">
-                  <i className="fa-solid fa-eye"></i>
-                </button>
-                <button className="btn btn-primary">
-                  <i className="fa-regular fa-pen-to-square"></i>
-                </button>
-                <button className="btn btn-danger">
-                  <i className="fa-solid fa-trash"></i>
-                </button>
-              </td>
-            </tr>
+          
           </tbody>
         </table>
       </div>
