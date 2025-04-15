@@ -8,11 +8,16 @@ const DbConnected = async () => {
             console.log("Database connected")
         })
     } catch (error) {
-        console.log(error)
+        console.log(error.message)
     }
 }
 DbConnected();
+app.use(express.json());
 const cors = require("cors");
+const user = require('./models/crudModels')
+app.use((req, res) => {
+    return res.status(404).json({ message: "Route not found" });
+})
 const port = process.env.port || 5000;
 app.listen(port, () => {
     console.log("Server is running on port", port);
