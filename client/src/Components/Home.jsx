@@ -18,9 +18,16 @@ export default function Home() {
 
   useEffect(() => {
   allUsers()
-},[])
+},[allUsersData])
 
-
+const handleDelete = async (id) => {
+  try {
+    const response = await axios.delete(`http://localhost:8000/delete/user/${id}`);
+    console.log(response)
+  } catch (error) {
+    console.log(error);
+  }
+};
   return (
     <div className="mt-5">
       <div className="container">
@@ -61,7 +68,7 @@ export default function Home() {
                       <EditSquareIcon />
                     </button>
                   </Link>
-                    <button className="btn btn-danger">
+                    <button onClick={() => handleDelete(user._id)} className="btn btn-danger">
                       <DeleteIcon />
                     </button>
                 </td>

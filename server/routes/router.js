@@ -53,7 +53,7 @@ router.patch("/update/user/:id", async (req, res) => {
     const userData = await crudModels.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    return res.status(200).json({ userData });
+    return res.status(200).json({ message:"User Updated Successfully",userData });
   } catch (error) {
     return res.status(500).json({ error: "Failed to update user" });
   }
@@ -61,7 +61,7 @@ router.patch("/update/user/:id", async (req, res) => {
 router.delete("/delete/user/:id", async (req, res) => {
   try {
     const userData = await crudModels.findByIdAndDelete(req.params.id);
-    return res.status(200).json({ userData });
+    return res.status(200).json({ message:"User Deleted Successfully",userData });
   } catch (error) {
     return res.status(500).json({ error: "Failed to delete user" });
   }
