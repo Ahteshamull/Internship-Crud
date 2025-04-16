@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -21,16 +23,13 @@ export default function Register() {
     e.preventDefault();
     
    try {
-     const response = await axios.post("http://localhost:8000/register", data, {
-       method: "POST",
-      
-       
-     });
-
-     const result = await res.json();
-     console.log(result);
+     const response = await axios.post("http://localhost:8000/register", data);
+console.log(response)
+     if (response.data.success) {
+      navigate("/");
+    }
    } catch (error) {
-    console.log(error.response.massage)
+    console.log(error)
    }
 
   }

@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditSquareIcon from "@mui/icons-material/EditSquare";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
 
 export default function Home() {
+  const [allUsersData, setAllUsersData] = useState([]);
+  const allUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/users");
+      setAllUsersData(response.data.userData);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+  allUsers()
+},[])
+
+
   return (
     <div className="mt-5">
       <div className="container">
@@ -25,50 +41,32 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Test</td>
-              <td>test@gmail.com</td>
-              <td>Developer</td>
-              <td>+121212</td>
-              <td className="d-flex justify-content-between">
-                <button className="btn btn-success">
-                  <RemoveRedEyeIcon />
-                </button>
-                <Link to={"/edit/id"}>
-                  <button className="btn btn-primary">
-                    <EditSquareIcon />
+            {allUsersData.map((user) => (
+              <tr>
+                <th scope="row">1</th>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.work}</td>
+                <td>{user.mobile}</td>
+                <td className="d-flex justify-content-between">
+                  <Link to={"/details/id"}>
+                  <button className="btn btn-success">
+                    <RemoveRedEyeIcon />
                   </button>
-                </Link>
-                <Link to={"/details/id"}>
-                  <button className="btn btn-danger">
-                    <DeleteIcon />
-                  </button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>Test</td>
-              <td>test@gmail.com</td>
-              <td>Developer</td>
-              <td>+121212</td>
-              <td className="d-flex justify-content-between">
-                <button className="btn btn-success">
-                  <RemoveRedEyeIcon />
-                </button>
-                <Link to={"/edit/id"}>
-                  <button className="btn btn-primary">
-                    <EditSquareIcon />
-                  </button>
-                </Link>
-                <Link to={"/details/id"}>
-                  <button className="btn btn-danger">
-                    <DeleteIcon />
-                  </button>
-                </Link>
-              </td>
-            </tr>
+                    
+
+                  </Link>
+                  <Link to={"/edit/id"}>
+                    <button className="btn btn-primary">
+                      <EditSquareIcon />
+                    </button>
+                  </Link>
+                    <button className="btn btn-danger">
+                      <DeleteIcon />
+                    </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
