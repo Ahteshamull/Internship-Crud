@@ -41,9 +41,9 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {allUsersData.map((user) => (
+            {allUsersData.map((user, index) => (
               <tr>
-                <th scope="row">1</th>
+                <th scope="row">{index + 1} </th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.work}</td>
