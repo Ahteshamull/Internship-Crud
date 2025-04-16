@@ -29,54 +29,71 @@ const handleDelete = async (id) => {
   }
 };
   return (
-    <div className="mt-5">
-      <div className="container">
-        <div className=" add_btn mb-3">
-          <Link to={"/register"}>
-            <button className="btn btn-primary">+Add Data</button>
-          </Link>
-        </div>
-        <table className="table">
-          <thead>
-            <tr className="table-dark">
-              <th scope="col">Id</th>
-              <th scope="col">Username</th>
-              <th scope="col">Email</th>
-              <th scope="col">Job</th>
-              <th scope="col">Number</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {allUsersData.map((user, index) => (
-              <tr>
-                <th scope="row">{index + 1} </th>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.work}</td>
-                <td>{user.mobile}</td>
-                <td className="d-flex justify-content-between">
-                  <Link to={`details/${user._id}`}>
-                  <button className="btn btn-success">
-                    <RemoveRedEyeIcon />
-                  </button>
-                    
+    <>
+      <div
+        className="alert alert-warning alert-dismissible fade show"
+        role="alert"
+      >
+        <strong>Holy guacamole!</strong> You should check in on some of those
+        fields below.
+        <button
+          type="button"
+          className="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        />
+      </div>
 
-                  </Link>
-                  <Link to={`edit/${user._id}`}>
-                    <button className="btn btn-primary">
-                      <EditSquareIcon />
-                    </button>
-                  </Link>
-                    <button onClick={() => handleDelete(user._id)} className="btn btn-danger">
+      <div className="mt-5">
+        <div className="container">
+          <div className=" add_btn mb-3">
+            <Link to={"/register"}>
+              <button className="btn btn-primary">+Add Data</button>
+            </Link>
+          </div>
+          <table className="table">
+            <thead>
+              <tr className="table-dark">
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Job</th>
+                <th scope="col">Number</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {allUsersData.map((user, index) => (
+                <tr>
+                  <th scope="row">{index + 1} </th>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.work}</td>
+                  <td>{user.mobile}</td>
+                  <td className="d-flex justify-content-between">
+                    <Link to={`details/${user._id}`}>
+                      <button className="btn btn-success">
+                        <RemoveRedEyeIcon />
+                      </button>
+                    </Link>
+                    <Link to={`edit/${user._id}`}>
+                      <button className="btn btn-primary">
+                        <EditSquareIcon />
+                      </button>
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(user._id)}
+                      className="btn btn-danger"
+                    >
                       <DeleteIcon />
                     </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -10,8 +10,10 @@ import { CardContent } from "@mui/material";
 import LocationPinIcon from "@mui/icons-material/LocationPin";
 import { Link, useParams } from "react-router";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function Details() {
+    const navigate = useNavigate();
   const {id } = useParams();
   const [singleUserData, setSingleUsersData] = useState([]);
   const singleUsers = async () => {
@@ -26,7 +28,21 @@ console.log(singleUserData)
   useEffect(() => {
     singleUsers();
   }, []);
-
+const handleDelete = async (id) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:8000/delete/user/${id}`
+    );
+    if (response.status === 200) {
+    
+       navigate("/")
+      
+    }
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
   return (
     <div className="container mt-3">
       <h1 style={{ fontWeight: 400 }}>
@@ -35,16 +51,16 @@ console.log(singleUserData)
       <Card sx={{ maxWidth: 600 }}>
         <CardContent>
           <div className="add_btn ">
-            <Link to={`edit/${singleUserData._id}`}>
+            <Link to={`/edit/${singleUserData._id}`}>
               <button className="btn btn-primary mx-2">
                 <EditSquareIcon />
               </button>
             </Link>
-            <Link to={"/details/id"}>
-              <button className="btn btn-danger">
+          
+              <button onClick={() => handleDelete(singleUserData._id)} className="btn btn-danger">
                 <DeleteIcon />
               </button>
-            </Link>
+         
           </div>
           <div className="row">
             <div className="left_view col-lg-6 col-md-6 col-12">
