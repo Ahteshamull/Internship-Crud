@@ -4,45 +4,43 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditSquareIcon from "@mui/icons-material/EditSquare";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import { handleSuccess } from "../Toast";
+
 
 export default function Home() {
   const [allUsersData, setAllUsersData] = useState([]);
+ 
   const allUsers = async () => {
     try {
       const response = await axios.get("http://localhost:8000/users");
       setAllUsersData(response.data.userData);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-  allUsers()
-},[allUsersData])
+    allUsers();
+  }, [allUsersData]);
 
-const handleDelete = async (id) => {
-  try {
-    const response = await axios.delete(`http://localhost:8000/delete/user/${id}`);
-    console.log(response)
-  } catch (error) {
-    console.log(error);
-  }
-};
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/delete/user/${id}`
+      );
+      console.log(response);
+      if (response.status === 200) {
+        handleSuccess("User Deleted Successfully") 
+      
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
-      <div
-        className="alert alert-warning alert-dismissible fade show"
-        role="alert"
-      >
-        <strong>Holy guacamole!</strong> You should check in on some of those
-        fields below.
-        <button
-          type="button"
-          className="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-        />
-      </div>
+     
 
       <div className="mt-5">
         <div className="container">
@@ -92,6 +90,7 @@ const handleDelete = async (id) => {
               ))}
             </tbody>
           </table>
+          <ToastContainer/>
         </div>
       </div>
     </>

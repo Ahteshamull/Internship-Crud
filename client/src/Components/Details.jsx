@@ -11,6 +11,8 @@ import LocationPinIcon from "@mui/icons-material/LocationPin";
 import { Link, useParams } from "react-router";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { ToastContainer } from "react-toastify";
+import { handleSuccess } from "../Toast";
 
 export default function Details() {
     const navigate = useNavigate();
@@ -34,7 +36,7 @@ const handleDelete = async (id) => {
       `http://localhost:8000/delete/user/${id}`
     );
     if (response.status === 200) {
-    
+    handleSuccess("User Deleted Successfully")
        navigate("/")
       
     }
@@ -109,6 +111,7 @@ const handleDelete = async (id) => {
               </p>
             </div>
           </div>
+          <ToastContainer/>
         </CardContent>
       </Card>
     </div>

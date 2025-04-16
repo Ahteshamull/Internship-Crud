@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import  {ToastContainer}  from "react-toastify";
+import { handleSuccess } from "../Toast";
+
 
 export default function Register() {
+ 
   const navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
@@ -12,34 +16,36 @@ export default function Register() {
     mobile: "",
     age: "",
     address: "",
-   description:""
+    description: "",
   });
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-   try {
-     const response = await axios.post("http://localhost:8000/register", data);
-console.log(response)
-     if (response.data.success) {
-      navigate("/");
-    }
-   } catch (error) {
-    console.log(error)
-   }
 
-  }
+    try {
+      const response = await axios.post("http://localhost:8000/register", data);
+      console.log(response);
+      
+      if (response.data.success) {
+        handleSuccess("User Added Successfully");
+        setTimeout(() => {
+          navigate("/");
+        },[2000])
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
       <div className="container">
-        <Link className="text-primary mt-3" to={"/"}>
-          Home
-        </Link>
+        <h2 className="text-primary mt-3" >
+         Add Your Data
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="mb-3 col-lg-6 col-md-6 col-12">
@@ -141,11 +147,10 @@ console.log(response)
               />
             </div>
 
-            <button  className="btn btn-primary">
-              Submit
-            </button>
+            <button className="btn btn-primary">Submit</button>
           </div>
         </form>
+        <ToastContainer/>
       </div>
     </div>
   );

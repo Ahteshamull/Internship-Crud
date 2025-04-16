@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { useNavigate } from "react-router";
+import { ToastContainer } from "react-toastify";
+import { handleSuccess } from "../Toast";
 
 export default function Edit() {
   const navigate = useNavigate(); 
@@ -44,8 +46,11 @@ export default function Edit() {
         data
       );
       if (res.status === 200) {
-
-        navigate("/")
+        handleSuccess("User Updated Successfully")
+        setTimeout(() => {
+          
+          navigate("/")
+        },[2000])
       }
       console.log("Updated successfully:", res.data)
     } catch (err) {
@@ -56,9 +61,9 @@ export default function Edit() {
   return (
     <div>
       <div className="container">
-        <Link className="text-primary mt-3 d-block" to={"/"}>
-          Home
-        </Link>
+        <h2 className="text-primary mt-3 d-block" >
+          Edit Your Data
+        </h2>
         <form onSubmit={handleUpdate}>
           <div className="row">
             <div className="mb-3 col-lg-6 col-md-6 col-12">
@@ -149,6 +154,7 @@ export default function Edit() {
             </button>
           </div>
         </form>
+        <ToastContainer/>
       </div>
     </div>
   );
