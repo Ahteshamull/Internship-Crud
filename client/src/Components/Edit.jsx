@@ -1,8 +1,12 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function Edit() {
+  const navigate = useNavigate(); 
+  const { id } = useParams();
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -12,39 +16,53 @@ export default function Edit() {
     address: "",
     description: "",
   });
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  console.log(data);
 
-  const {id } = useParams();
-  const [singleUserData, setSingleUsersData] = useState([]);
   const singleUsers = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/single/user/${id}`);
-      setSingleUsersData(response.data.userData);
+      const response = await axios.get(
+        `http://localhost:8000/single/user/${id}`
+      );
+      setData(response.data.userData);
     } catch (error) {
       console.log(error);
     }
   };
-console.log(singleUserData)
+
   useEffect(() => {
     singleUsers();
   }, []);
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.patch(
+        `http://localhost:8000/update/user/${id}`,
+        data
+      );
+      if (res.status === 200) {
+
+        navigate("/")
+      }
+      console.log("Updated successfully:", res.data)
+    } catch (err) {
+      console.log("Update failed:", err);
+    }
+  };
 
   return (
     <div>
       <div className="container">
-        <Link className="text-primary mt-3" to={"/"}>
-          Home2
+        <Link className="text-primary mt-3 d-block" to={"/"}>
+          Home
         </Link>
-        <form>
+        <form onSubmit={handleUpdate}>
           <div className="row">
             <div className="mb-3 col-lg-6 col-md-6 col-12">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                Name
-              </label>
+              <label className="form-label">Name</label>
               <input
                 onChange={handleChange}
                 value={data.name}
@@ -56,9 +74,7 @@ console.log(singleUserData)
               />
             </div>
             <div className="mb-3 col-lg-6 col-md-6 col-12">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Email
-              </label>
+              <label className="form-label">Email</label>
               <input
                 onChange={handleChange}
                 value={data.email}
@@ -70,9 +86,7 @@ console.log(singleUserData)
               />
             </div>
             <div className="mb-3 col-lg-6 col-md-6 col-12">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Work
-              </label>
+              <label className="form-label">Work</label>
               <input
                 onChange={handleChange}
                 value={data.work}
@@ -84,9 +98,7 @@ console.log(singleUserData)
               />
             </div>
             <div className="mb-3 col-lg-6 col-md-6 col-12">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Mobile
-              </label>
+              <label className="form-label">Mobile</label>
               <input
                 onChange={handleChange}
                 value={data.mobile}
@@ -98,9 +110,7 @@ console.log(singleUserData)
               />
             </div>
             <div className="mb-3 col-lg-6 col-md-6 col-12">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Age
-              </label>
+              <label className="form-label">Age</label>
               <input
                 onChange={handleChange}
                 value={data.age}
@@ -112,9 +122,7 @@ console.log(singleUserData)
               />
             </div>
             <div className="mb-3 col-lg-6 col-md-6 col-12">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Address
-              </label>
+              <label className="form-label">Address</label>
               <input
                 onChange={handleChange}
                 value={data.address}
@@ -126,12 +134,9 @@ console.log(singleUserData)
               />
             </div>
             <div className="mb-3 col-lg-12 col-md-12 col-12">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Description
-              </label>
+              <label className="form-label">Description</label>
               <textarea
                 onChange={handleChange}
-                type="text"
                 required
                 name="description"
                 value={data.description}
@@ -139,9 +144,8 @@ console.log(singleUserData)
                 placeholder="Enter Your Description"
               />
             </div>
-
             <button type="submit" className="btn btn-primary">
-              Submit
+              Update
             </button>
           </div>
         </form>

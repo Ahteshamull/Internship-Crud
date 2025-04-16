@@ -48,5 +48,23 @@ router.get("/single/user/:id", async (req, res) => {
     return res.status(500).json({ error: "Failed to fetch user" });
   }
 });
+router.patch("/update/user/:id", async (req, res) => {
+  try {
+    const userData = await crudModels.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    return res.status(200).json({ userData });
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to update user" });
+  }
+});
+router.delete("/delete/user/:id", async (req, res) => {
+  try {
+    const userData = await crudModels.findByIdAndDelete(req.params.id);
+    return res.status(200).json({ userData });
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to delete user" });
+  }
+});
 
 module.exports = router;

@@ -35,7 +35,7 @@ console.log(singleUserData)
       <Card sx={{ maxWidth: 600 }}>
         <CardContent>
           <div className="add_btn ">
-            <Link to={"/edit/id"}>
+            <Link to={`edit/${singleUserData._id}`}>
               <button className="btn btn-primary mx-2">
                 <EditSquareIcon />
               </button>
@@ -58,7 +58,8 @@ console.log(singleUserData)
                 <span style={{ fontWeight: 400 }}>{singleUserData.name}</span>
               </h3>
               <h3 className="mt-3">
-                Age:- <span style={{ fontWeight: 400 }}>{singleUserData.age}</span>
+                Age:-{" "}
+                <span style={{ fontWeight: 400 }}>{singleUserData.age}</span>
               </h3>
               <p>
                 <MailOutlineIcon />
@@ -74,11 +75,15 @@ console.log(singleUserData)
             <div className="right_view col-lg-6 col-md-6 col-12">
               <p className="mt-5">
                 <StayCurrentPortraitIcon />
-                Mobile:- <span style={{ fontWeight: 400 }}>{singleUserData.mobile}</span>
+                Mobile:-{" "}
+                <span style={{ fontWeight: 400 }}>{singleUserData.mobile}</span>
               </p>
               <p className="mt-3">
                 <LocationPinIcon />
-                Address:- <span style={{ fontWeight: 400 }}>{singleUserData.address}</span>
+                Address:-{" "}
+                <span style={{ fontWeight: 400 }}>
+                  {singleUserData.address}
+                </span>
               </p>
               <p className="mt-3">
                 Description:-{" "}
