@@ -15,42 +15,45 @@ import { ToastContainer } from "react-toastify";
 import { handleSuccess } from "../Toast";
 
 export default function Details() {
-    const navigate = useNavigate();
-  const {id } = useParams();
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [singleUserData, setSingleUsersData] = useState([]);
   const singleUsers = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/single/user/${id}`);
+      const response = await axios.get(
+        `http://localhost:8000/single/user/${id}`
+      );
       setSingleUsersData(response.data.userData);
     } catch (error) {
       console.log(error);
     }
   };
-console.log(singleUserData)
+  console.log(singleUserData);
   useEffect(() => {
     singleUsers();
   }, []);
-const handleDelete = async (id) => {
-  try {
-    const response = await axios.delete(
-      `http://localhost:8000/delete/user/${id}`
-    );
-    if (response.status === 200) {
-    handleSuccess("User Deleted Successfully")
-       navigate("/")
-      
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/delete/user/${id}`
+      );
+      if (response.status === 200) {
+        handleSuccess("User Deleted Successfully");
+        setTimeout(() => {
+          navigate("/");
+        }, [2000]);
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
   return (
     <div className="container mt-3">
       <h1 style={{ fontWeight: 400 }}>
         Welcome <span className="text-primary">{singleUserData.name}</span>
       </h1>
-      <Card sx={{ maxWidth: 600 }}>
+      <Card sx={{ maxWidth: 800 }}>
         <CardContent>
           <div className="add_btn ">
             <Link to={`/edit/${singleUserData._id}`}>
@@ -58,11 +61,13 @@ const handleDelete = async (id) => {
                 <EditSquareIcon />
               </button>
             </Link>
-          
-              <button onClick={() => handleDelete(singleUserData._id)} className="btn btn-danger">
-                <DeleteIcon />
-              </button>
-         
+
+            <button
+              onClick={() => handleDelete(singleUserData._id)}
+              className="btn btn-danger"
+            >
+              <DeleteIcon />
+            </button>
           </div>
           <div className="row">
             <div className="left_view col-lg-6 col-md-6 col-12">
@@ -111,7 +116,7 @@ const handleDelete = async (id) => {
               </p>
             </div>
           </div>
-          <ToastContainer/>
+          <ToastContainer />
         </CardContent>
       </Card>
     </div>
