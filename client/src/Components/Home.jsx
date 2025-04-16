@@ -49,7 +49,7 @@ export default function Home() {
                 <td>{user.work}</td>
                 <td>{user.mobile}</td>
                 <td className="d-flex justify-content-between">
-                  <Link to={"/details/id"}>
+                  <Link to={`details/${user._id}`}>
                   <button className="btn btn-success">
                     <RemoveRedEyeIcon />
                   </button>

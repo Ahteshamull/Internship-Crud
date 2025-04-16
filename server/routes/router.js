@@ -40,4 +40,13 @@ router.get("/users", async (req, res) => {
   }
 });
 
+router.get("/single/user/:id", async (req, res) => {
+  try {
+    const userData = await crudModels.findById(req.params.id);
+    return res.status(200).json({ userData });
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to fetch user" });
+  }
+});
+
 module.exports = router;
