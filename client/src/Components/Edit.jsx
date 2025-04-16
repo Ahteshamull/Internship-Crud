@@ -1,5 +1,6 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 
 export default function Edit() {
   const [data, setData] = useState({
@@ -15,6 +16,23 @@ export default function Edit() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   console.log(data);
+
+  const {id } = useParams();
+  const [singleUserData, setSingleUsersData] = useState([]);
+  const singleUsers = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/single/user/${id}`);
+      setSingleUsersData(response.data.userData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+console.log(singleUserData)
+  useEffect(() => {
+    singleUsers();
+  }, []);
+
+
   return (
     <div>
       <div className="container">

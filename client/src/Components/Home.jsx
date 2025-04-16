@@ -56,7 +56,7 @@ export default function Home() {
                     
 
                   </Link>
-                  <Link to={"/edit/id"}>
+                  <Link to={`edit/${user._id}`}>
                     <button className="btn btn-primary">
                       <EditSquareIcon />
                     </button>

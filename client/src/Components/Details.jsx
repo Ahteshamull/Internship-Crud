@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EditSquareIcon from "@mui/icons-material/EditSquare";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Card from "@mui/material/Card";
@@ -8,13 +8,29 @@ import WorkIcon from "@mui/icons-material/Work";
 import StayCurrentPortraitIcon from "@mui/icons-material/StayCurrentPortrait";
 import { CardContent } from "@mui/material";
 import LocationPinIcon from "@mui/icons-material/LocationPin";
-import { Link } from 'react-router';
+import { Link, useParams } from "react-router";
+import axios from "axios";
 
 export default function Details() {
+  const {id } = useParams();
+  const [singleUserData, setSingleUsersData] = useState([]);
+  const singleUsers = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/single/user/${id}`);
+      setSingleUsersData(response.data.userData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+console.log(singleUserData)
+  useEffect(() => {
+    singleUsers();
+  }, []);
+
   return (
     <div className="container mt-3">
       <h1 style={{ fontWeight: 400 }}>
-        Welcome <span>Details</span>
+        Welcome <span className="text-primary">{singleUserData.name}</span>
       </h1>
       <Card sx={{ maxWidth: 600 }}>
         <CardContent>
@@ -38,38 +54,36 @@ export default function Details() {
                 alt="ProfileImage"
               />
               <h3 className="mt-3">
-                Name:- <span style={{ fontWeight: 400 }}>Hasan</span>
+                Name:-{" "}
+                <span style={{ fontWeight: 400 }}>{singleUserData.name}</span>
               </h3>
               <h3 className="mt-3">
-                Age:- <span style={{ fontWeight: 400 }}>21</span>
+                Age:- <span style={{ fontWeight: 400 }}>{singleUserData.age}</span>
               </h3>
               <p>
                 <MailOutlineIcon />
                 Email:-{" "}
-                <span style={{ fontWeight: 400 }}>hasan@.gmail.com</span>
+                <span style={{ fontWeight: 400 }}>{singleUserData.email}</span>
               </p>
               <p>
                 <WorkIcon />
                 Occupation:-{" "}
-                <span style={{ fontWeight: 400 }}>Web Developer</span>
+                <span style={{ fontWeight: 400 }}>{singleUserData.work}</span>
               </p>
             </div>
             <div className="right_view col-lg-6 col-md-6 col-12">
               <p className="mt-5">
                 <StayCurrentPortraitIcon />
-                Mobile:- <span style={{ fontWeight: 400 }}>+121212</span>
+                Mobile:- <span style={{ fontWeight: 400 }}>{singleUserData.mobile}</span>
               </p>
               <p className="mt-3">
                 <LocationPinIcon />
-                Address:- <span style={{ fontWeight: 400 }}>21</span>
+                Address:- <span style={{ fontWeight: 400 }}>{singleUserData.address}</span>
               </p>
               <p className="mt-3">
                 Description:-{" "}
                 <span style={{ fontWeight: 400 }}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
-                  voluptas placeat cumque facilis minima perferendis ducimus in
-                  voluptatum libero minus necessitatibus nemo impedit, neque
-                  soluta quo ad blanditiis omnis eos!
+                  {singleUserData.description}
                 </span>
               </p>
             </div>
